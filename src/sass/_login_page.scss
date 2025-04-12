@@ -1,3 +1,17 @@
-.login-button-width {
-    min-width: 6rem;
+.login-button {
+    min-width: 100%;
+    background-color: #228B22;
+    border-color: #228B22;
+}
+
+.login-button:hover {
+    color: #FFFFFF;
+    background-color: #228B22EE;
+    border-color: #228B22EE;
+}
+
+.link-button {
+    background-color: #FFFFFF;
+    color: #228B22;
+    border: none;
 }

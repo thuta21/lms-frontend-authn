@@ -3,13 +3,13 @@ import { defineMessages } from '@edx/frontend-platform/i18n';
 const messages = defineMessages({
   'login.page.title': {
     id: 'login.page.title',
-    defaultMessage: 'Login | {siteName}',
+    defaultMessage: 'Welcome Back',
     description: 'login page title',
   },
   // Login labels
   'login.user.identity.label': {
     id: 'login.user.identity.label',
-    defaultMessage: 'Username or email',
+    defaultMessage: 'Email Address',
     description: 'Label for user identity field to enter either username or email to login',
   },
   'login.password.label': {
@@ -19,12 +19,12 @@ const messages = defineMessages({
   },
   'sign.in.button': {
     id: 'sign.in.button',
-    defaultMessage: 'Sign in',
+    defaultMessage: 'Log in',
     description: 'Sign in button label that appears on login page',
   },
   'forgot.password': {
     id: 'forgot.password',
-    defaultMessage: 'Forgot password',
+    defaultMessage: 'Forgot password?',
     description: 'Button text for forgot password',
   },
   'institution.login.button': {

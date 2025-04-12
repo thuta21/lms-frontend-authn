@@ -12,7 +12,8 @@
 // #COLORS
 // ----------------------------
 $white: #FFFFFF;
-
+$primary: #228B22;
+$secondary: #6E726E;
 // social platforms
 $facebook-blue: #1877F2;
 $facebook-focus-blue: #29487d;
@@ -25,7 +26,29 @@ $apple-focus-black: $apple-black;
 
 $elevation-level-2-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.15);
 
+.tx-primary {
+    color: $primary;
+}
 
+.bg-color-primary {
+    background-color: $primary;
+}
+
+.border-color-primary {
+    border-color: $primary;
+}
+
+.tx-secondary {
+    color: $secondary;
+}
+
+.bg-color-secondary {
+    background-color: $secondary;
+}
+
+.border-color-secondary {
+    border-color: $secondary;
+}
 // Forgot Password Page
 .forgot-password-button-width {
   min-width: 6rem;
