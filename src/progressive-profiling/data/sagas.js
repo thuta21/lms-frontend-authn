@@ -1,4 +1,4 @@
-import { call, put, takeEvery } from 'redux-saga/effects';
+import { call, put, takeLatest } from 'redux-saga/effects';
 
 import {
   SAVE_USER_PROFILE,
@@ -20,5 +20,5 @@ export function* saveUserProfileInformation(action) {
 }
 
 export default function* saga() {
-  yield takeEvery(SAVE_USER_PROFILE.BASE, saveUserProfileInformation);
+  yield takeLatest(SAVE_USER_PROFILE.BASE, saveUserProfileInformation);
 }

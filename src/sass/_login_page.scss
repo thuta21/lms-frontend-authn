@@ -1,3 +1,28 @@
-.login-button-width {
-    min-width: 6rem;
+@import "_variables.scss";
+
+.login-button {
+    min-width: 100%;
+    background-color: $app-primary-500;
+    border-color: $app-primary-500;
+}
+.login-button:hover {
+    color: #FFFFFF;
+    background-color: #228B22EE;
+    border-color: #228B22EE;
+}
+
+.link-button {
+    background-color: #FFFFFF;
+    color: $app-primary-500;
+    border: none;
+}
+
+.btn-brand:not(:disabled, .disabled):active, .btn-brand:not(:disabled, .disabled).active, .show > .btn-brand.dropdown-toggle {
+    background-color: $app-primary-500;
+    border-color: $app-primary-500;
+}
+
+.form-control:focus {
+    border-color: $app-primary-500;
+    box-shadow: 0 0 0 1px $app-primary-500;
 }

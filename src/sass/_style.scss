@@ -1,4 +1,5 @@
 // Load component based styles
+@import "_variables.scss";
 @import "_base_component.scss";
 @import "_registration.scss";
 @import "_recommendations_page.scss";
@@ -7,25 +8,31 @@
 @import "_login_page.scss";
 @import "_forgot_password.scss";
 @import "_recommendations_card_base.scss";
-//
-// ----------------------------
-// #COLORS
-// ----------------------------
-$white: #FFFFFF;
-
-// social platforms
-$facebook-blue: #1877F2;
-$facebook-focus-blue: #29487d;
-$google-blue: #4285f4;
-$google-focus-blue: #287ae6;
-$microsoft-black: #2f2f2f;
-$microsoft-focus-black: #000;
-$apple-black: #000000;
-$apple-focus-black: $apple-black;
-
-$elevation-level-2-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.15);
 
 
+.tx-primary {
+    color: $app-primary-500;
+}
+
+.bg-color-primary {
+    background-color: $app-primary-500;
+}
+
+.border-color-primary {
+    border-color: $app-primary-500;
+}
+
+.tx-secondary {
+    color: $secondary;
+}
+
+.bg-color-secondary {
+    background-color: $secondary;
+}
+
+.border-color-secondary {
+    border-color: $secondary;
+}
 // Forgot Password Page
 .forgot-password-button-width {
   min-width: 6rem;
@@ -104,10 +111,10 @@ $elevation-level-2-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.15);
   font-size: 14px;
 
   background-color: $white;
-  border: 1px solid $primary;
+  border: 1px solid $app-primary-500;
   width: 224px;
   height: 36px;
-  color: $primary;
+  color: $app-primary-500;
 
   .btn-tpa__image-icon{
     background-color: transparent;
@@ -132,7 +139,7 @@ $elevation-level-2-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.15);
 }
 
 .btn-tpa__font-container {
-  background-color: $primary;
+  background-color: $app-primary-500;
   color: $white;
   font-size: 11px;
 
@@ -456,4 +463,39 @@ select.form-control {
 
 .pgn__form-control-decorator-trailing {
   right: 0 !important;
+}
+
+.company-logo {
+  width: 126px;
+  height: 40px;
+  margin-top: 2rem;
+  margin-left: 1.5rem;
+}
+
+.btn-brand {
+  background-color: $app-primary-500;
+  border-color: $app-primary-500;
+}
+
+.btn-brand:hover {
+  color: #FFFFFF;
+  background-color: #228B22EE;
+  border-color: #228B22EE;
+}
+
+.btn-brand.focus::before, .btn-brand:focus::before, .nav-tabs .nav-link:focus::before {
+  border: solid 2px $app-primary-500;
+}
+
+.btn-brand.disabled, .btn-brand:disabled {
+  background-color: $app-primary-500;
+  border-color: $app-primary-500;
+}
+
+.btn-link:hover {
+  color: $app-primary-500;
+}
+
+.form-control:hover {
+  border: solid 1px $app-primary-500;
 }

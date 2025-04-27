@@ -3,7 +3,7 @@ import { defineMessages } from '@edx/frontend-platform/i18n';
 const messages = defineMessages({
   'register.page.title': {
     id: 'register.page.title',
-    defaultMessage: 'Register | {siteName}',
+    defaultMessage: 'Create account',
     description: 'register page title',
   },
   // Field labels
@@ -14,12 +14,12 @@ const messages = defineMessages({
   },
   'registration.email.label': {
     id: 'registration.email.label',
-    defaultMessage: 'Email',
+    defaultMessage: 'Email Address',
     description: 'Label that appears above email field on register page',
   },
   'registration.username.label': {
     id: 'registration.username.label',
-    defaultMessage: 'Public username',
+    defaultMessage: 'Username',
     description: 'Label that appears above username field',
   },
   'registration.password.label': {
@@ -61,7 +61,7 @@ const messages = defineMessages({
   // Form buttons
   'create.account.for.free.button': {
     id: 'create.account.for.free.button',
-    defaultMessage: 'Create an account for free',
+    defaultMessage: 'Create account',
     description: 'Label text for registration form submission button',
   },
   'create.account.cta.button': {

@@ -1,5 +1,5 @@
 import { logError, logInfo } from '@edx/frontend-platform/logging';
-import { call, put, takeEvery } from 'redux-saga/effects';
+import { call, put, takeLatest } from 'redux-saga/effects';
 
 import {
   passwordResetFailure,
@@ -62,6 +62,6 @@ export function* handleResetPassword(action) {
 }
 
 export default function* saga() {
-  yield takeEvery(RESET_PASSWORD.BASE, handleResetPassword);
-  yield takeEvery(VALIDATE_TOKEN.BASE, handleValidateToken);
+  yield takeLatest(RESET_PASSWORD.BASE, handleResetPassword);
+  yield takeLatest(VALIDATE_TOKEN.BASE, handleValidateToken);
 }

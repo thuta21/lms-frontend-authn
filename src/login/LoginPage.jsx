@@ -8,7 +8,6 @@ import {
   Form, StatefulButton,
 } from '@openedx/paragon';
 import PropTypes from 'prop-types';
-import { Helmet } from 'react-helmet';
 import Skeleton from 'react-loading-skeleton';
 import { Link } from 'react-router-dom';
 
@@ -31,9 +30,8 @@ import {
 import { getThirdPartyAuthContext } from '../common-components/data/actions';
 import { thirdPartyAuthContextSelector } from '../common-components/data/selectors';
 import EnterpriseSSO from '../common-components/EnterpriseSSO';
-import ThirdPartyAuth from '../common-components/ThirdPartyAuth';
 import {
-  DEFAULT_STATE, PENDING_STATE, RESET_PAGE,
+  DEFAULT_STATE, LOGIN_PAGE, PENDING_STATE, REGISTER_PAGE, RESET_PAGE,
 } from '../data/constants';
 import {
   getActivationStatus,
@@ -65,7 +63,7 @@ const LoginPage = (props) => {
     submitState,
     // Actions
     backupFormState,
-    handleInstitutionLogin,
+    handleOnSelect,
     getTPADataFromBackend,
   } = props;
   const { formatMessage } = useIntl();
@@ -73,7 +71,11 @@ const LoginPage = (props) => {
   const queryParams = useMemo(() => getAllPossibleQueryParams(), []);
 
   const [formFields, setFormFields] = useState({ ...backedUpFormData.formFields });
-  const [errorCode, setErrorCode] = useState({ type: '', count: 0, context: {} });
+  const [errorCode, setErrorCode] = useState({
+    type: '',
+    count: 0,
+    context: {},
+  });
   const [errors, setErrors] = useState({ ...backedUpFormData.errors });
   const tpaHint = getTpaHint();
 
@@ -87,7 +89,7 @@ const LoginPage = (props) => {
       payload.tpa_hint = tpaHint;
     }
     getTPADataFromBackend(payload);
-  }, [getTPADataFromBackend, queryParams, tpaHint]);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
   /**
    * Backup the login form in redux when login page is toggled.
    */
@@ -123,7 +125,10 @@ const LoginPage = (props) => {
   }, [thirdPartyErrorMessage]);
 
   const validateFormFields = (payload) => {
-    const { emailOrUsername, password } = payload;
+    const {
+      emailOrUsername,
+      password,
+    } = payload;
     const fieldErrors = { ...errors };
 
     if (emailOrUsername === '') {
@@ -148,7 +153,11 @@ const LoginPage = (props) => {
     const validationErrors = validateFormFields(formData);
     if (validationErrors.emailOrUsername || validationErrors.password) {
       setErrors({ ...validationErrors });
-      setErrorCode(prevState => ({ type: INVALID_FORM, count: prevState.count + 1, context: {} }));
+      setErrorCode(prevState => ({
+        type: INVALID_FORM,
+        count: prevState.count + 1,
+        context: {},
+      }));
       return;
     }
 
@@ -162,19 +171,31 @@ const LoginPage = (props) => {
   };
 
   const handleOnChange = (event) => {
-    const { name, value } = event.target;
-    setFormFields(prevState => ({ ...prevState, [name]: value }));
+    const {
+      name,
+      value,
+    } = event.target;
+    setFormFields(prevState => ({
+      ...prevState,
+      [name]: value,
+    }));
   };
 
   const handleOnFocus = (event) => {
     const { name } = event.target;
-    setErrors(prevErrors => ({ ...prevErrors, [name]: '' }));
+    setErrors(prevErrors => ({
+      ...prevErrors,
+      [name]: '',
+    }));
   };
   const trackForgotPasswordLinkClick = () => {
     sendTrackEvent('edx.bi.password-reset_form.toggled', { category: 'user-engagement' });
   };
 
-  const { provider, skipHintedLogin } = getTpaProvider(tpaHint, providers, secondaryProviders);
+  const {
+    provider,
+    skipHintedLogin,
+  } = getTpaProvider(tpaHint, providers, secondaryProviders);
 
   if (tpaHint) {
     if (thirdPartyAuthApiStatus === PENDING_STATE) {
@@ -201,9 +222,12 @@ const LoginPage = (props) => {
   }
   return (
     <>
-      <Helmet>
-        <title>{formatMessage(messages['login.page.title'], { siteName: getConfig().SITE_NAME })}</title>
-      </Helmet>
+      <div className="d-flex justify-content-center">
+        <title
+          className="d-inline font-weight-bold h1"
+        >{formatMessage(messages['login.page.title'])}
+        </title>
+      </div>
       <RedirectLogistration
         success={loginResult.success}
         redirectUrl={loginResult.redirectUrl}
@@ -244,12 +268,23 @@ const LoginPage = (props) => {
             errorMessage={errors.password}
             floatingLabel={formatMessage(messages['login.password.label'])}
           />
+          <div className="flex justify-content-start">
+            <Link
+              id="forgot-password"
+              name="forgot-password"
+              className="btn btn-link font-weight-500 tx-primary px-0 mb-4"
+              to={updatePathWithQueryParams(RESET_PAGE)}
+              onClick={trackForgotPasswordLinkClick}
+            >
+              {formatMessage(messages['forgot.password'])}
+            </Link>
+          </div>
           <StatefulButton
             name="sign-in"
             id="sign-in"
             type="submit"
             variant="brand"
-            className="login-button-width"
+            className="login-button"
             state={submitState}
             labels={{
               default: formatMessage(messages['sign.in.button']),
@@ -258,24 +293,14 @@ const LoginPage = (props) => {
             onClick={handleSubmit}
             onMouseDown={(event) => event.preventDefault()}
           />
-          <Link
-            id="forgot-password"
-            name="forgot-password"
-            className="btn btn-link font-weight-500 text-body"
-            to={updatePathWithQueryParams(RESET_PAGE)}
-            onClick={trackForgotPasswordLinkClick}
-          >
-            {formatMessage(messages['forgot.password'])}
-          </Link>
-          <ThirdPartyAuth
-            currentProvider={currentProvider}
-            providers={providers}
-            secondaryProviders={secondaryProviders}
-            handleInstitutionLogin={handleInstitutionLogin}
-            thirdPartyAuthApiStatus={thirdPartyAuthApiStatus}
-            isLoginPage
-          />
         </Form>
+        <div className="mt-3 d-flex align-items-center flex-column justify-content-center">
+          <span className="tx-secondary">Don’t have an account? <button type="button" className="link-button" onClick={() => handleOnSelect(REGISTER_PAGE, LOGIN_PAGE)}>Create one</button></span>
+        </div>
+        <div className="mt-5 d-flex align-items-center flex-column justify-content-center">
+          <span className="tx-secondary">By continuing you agree to Medcenter’s</span>
+          <button type="button" className="link-button">Terms and Privacy’s Policy</button>
+        </div>
       </div>
     </>
   );
@@ -329,16 +354,18 @@ LoginPage.propTypes = {
   dismissPasswordResetBanner: PropTypes.func.isRequired,
   loginRequest: PropTypes.func.isRequired,
   getTPADataFromBackend: PropTypes.func.isRequired,
-  handleInstitutionLogin: PropTypes.func.isRequired,
+  handleOnSelect: PropTypes.func.isRequired,
 };
 
 LoginPage.defaultProps = {
   backedUpFormData: {
     formFields: {
-      emailOrUsername: '', password: '',
+      emailOrUsername: '',
+      password: '',
     },
     errors: {
-      emailOrUsername: '', password: '',
+      emailOrUsername: '',
+      password: '',
     },
   },
   loginErrorCode: null,

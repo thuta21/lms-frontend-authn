@@ -1,6 +1,6 @@
 import { camelCaseObject } from '@edx/frontend-platform';
 import { logError, logInfo } from '@edx/frontend-platform/logging';
-import { call, put, takeEvery } from 'redux-saga/effects';
+import { call, put, takeLatest } from 'redux-saga/effects';
 
 import {
   LOGIN_REQUEST,
@@ -42,5 +42,5 @@ export function* handleLoginRequest(action) {
 }
 
 export default function* saga() {
-  yield takeEvery(LOGIN_REQUEST.BASE, handleLoginRequest);
+  yield takeLatest(LOGIN_REQUEST.BASE, handleLoginRequest);
 }

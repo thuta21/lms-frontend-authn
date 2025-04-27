@@ -1,5 +1,5 @@
 import { logError } from '@edx/frontend-platform/logging';
-import { call, put, takeEvery } from 'redux-saga/effects';
+import { call, put, takeLatest } from 'redux-saga/effects';
 
 import {
   getThirdPartyAuthContextBegin,
@@ -28,5 +28,7 @@ export function* fetchThirdPartyAuthContext(action) {
 }
 
 export default function* saga() {
-  yield takeEvery(THIRD_PARTY_AUTH_CONTEXT.BASE, fetchThirdPartyAuthContext);
+  console.trace('trace');
+
+  yield takeLatest(THIRD_PARTY_AUTH_CONTEXT.BASE, fetchThirdPartyAuthContext);
 }

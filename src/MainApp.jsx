@@ -1,12 +1,10 @@
 import React from 'react';
 
-import { getConfig } from '@edx/frontend-platform';
 import { AppProvider } from '@edx/frontend-platform/react';
-import { Helmet } from 'react-helmet';
 import { Navigate, Route, Routes } from 'react-router-dom';
 
 import {
-  EmbeddedRegistrationRoute, NotFoundPage, registerIcons, UnAuthOnlyRoute, Zendesk,
+  EmbeddedRegistrationRoute, NotFoundPage, registerIcons, UnAuthOnlyRoute,
 } from './common-components';
 import configureStore from './data/configureStore';
 import {
@@ -30,13 +28,10 @@ import { ResetPasswordPage } from './reset-password';
 import './index.scss';
 
 registerIcons();
+const store = configureStore();
 
 const MainApp = () => (
-  <AppProvider store={configureStore()}>
-    <Helmet>
-      <link rel="shortcut icon" href={getConfig().FAVICON_URL} type="image/x-icon" />
-    </Helmet>
-    {getConfig().ZENDESK_KEY && <Zendesk />}
+  <AppProvider store={store}>
     <Routes>
       <Route path="/" element={<Navigate replace to={updatePathWithQueryParams(REGISTER_PAGE)} />} />
       <Route
