@@ -2,8 +2,6 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { useIntl } from '@edx/frontend-platform/i18n';
-import { Button, Icon, IconButton } from '@openedx/paragon';
-import { Close } from '@openedx/paragon/icons';
 import PropTypes from 'prop-types';
 
 import validateUsername from './validator';
@@ -13,7 +11,6 @@ import {
   clearUsernameSuggestions,
   fetchRealtimeValidations,
 } from '../../data/actions';
-import messages from '../../messages';
 
 /**
  * Username field wrapper. It accepts following handlers
@@ -33,14 +30,10 @@ const UsernameField = (props) => {
 
   const {
     value,
-    errorMessage,
     handleChange,
     handleErrorChange,
   } = props;
 
-  let className = '';
-  let suggestedUsernameDiv = null;
-  let iconButton = null;
   const usernameSuggestions = useSelector(state => state.register.usernameSuggestions);
   const validationApiRateLimited = useSelector(state => state.register.validationApiRateLimited);
 
@@ -88,60 +81,13 @@ const UsernameField = (props) => {
     dispatch(clearRegistrationBackendError('username'));
   };
 
-  const handleSuggestionClick = (event, suggestion = '') => {
-    event.preventDefault();
-    handleErrorChange('username', ''); // clear error
-    handleChange({ target: { name: 'username', value: suggestion } }); // to set suggestion as value
-    dispatch(clearUsernameSuggestions());
-  };
-
-  const handleUsernameSuggestionClose = () => {
-    handleChange({ target: { name: 'username', value: '' } }); // to remove space in field
-    dispatch(clearUsernameSuggestions());
-  };
-
-  const suggestedUsernames = () => (
-    <div className={className}>
-      <span className="text-gray username-suggestion--label">{formatMessage(messages['registration.username.suggestion.label'])}</span>
-      <div className="username-scroll-suggested--form-field">
-        {usernameSuggestions.map((username, index) => (
-          <Button
-            type="button"
-            name="username"
-            variant="outline-dark"
-            className="username-suggestions--chip data-hj-suppress"
-            autoComplete={props.autoComplete}
-            key={`suggestion-${index.toString()}`}
-            onClick={(e) => handleSuggestionClick(e, username)}
-          >
-            {username}
-          </Button>
-        ))}
-      </div>
-      {iconButton}
-    </div>
-  );
-
-  if (usernameSuggestions.length > 0 && errorMessage && value === ' ') {
-    className = 'username-suggestions__error';
-    iconButton = <IconButton src={Close} iconAs={Icon} alt="Close" onClick={() => handleUsernameSuggestionClose()} variant="black" size="sm" className="username-suggestions__close__button" />;
-    suggestedUsernameDiv = suggestedUsernames();
-  } else if (usernameSuggestions.length > 0 && value === ' ') {
-    className = 'username-suggestions d-flex align-items-center';
-    iconButton = <IconButton src={Close} iconAs={Icon} alt="Close" onClick={() => handleUsernameSuggestionClose()} variant="black" size="sm" className="username-suggestions__close__button" />;
-    suggestedUsernameDiv = suggestedUsernames();
-  } else if (usernameSuggestions.length > 0 && errorMessage) {
-    suggestedUsernameDiv = suggestedUsernames();
-  }
   return (
     <FormGroup
       {...props}
       handleChange={handleOnChange}
       handleFocus={handleOnFocus}
       handleBlur={handleOnBlur}
-    >
-      {suggestedUsernameDiv}
-    </FormGroup>
+    />
   );
 };
 

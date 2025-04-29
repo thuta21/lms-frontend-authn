@@ -221,88 +221,92 @@ const LoginPage = (props) => {
     );
   }
   return (
-    <>
-      <div className="d-flex justify-content-center">
-        <title
-          className="d-inline font-weight-bold h1"
-        >{formatMessage(messages['login.page.title'])}
-        </title>
-      </div>
-      <RedirectLogistration
-        success={loginResult.success}
-        redirectUrl={loginResult.redirectUrl}
-        finishAuthUrl={finishAuthUrl}
-      />
-      <div className="mw-xs mt-3 mb-2">
-        <LoginFailureMessage
-          errorCode={errorCode.type}
-          errorCount={errorCode.count}
-          context={errorCode.context}
+    <div className="h-100 d-flex flex-column justify-content-between">
+      <div>
+        <div className="d-flex justify-content-start justify-content-md-center justify-content-lg-center">
+          <title
+            className="d-inline font-weight-bold h1"
+          >{formatMessage(messages['login.page.title'])}
+          </title>
+        </div>
+        <RedirectLogistration
+          success={loginResult.success}
+          redirectUrl={loginResult.redirectUrl}
+          finishAuthUrl={finishAuthUrl}
         />
-        <ThirdPartyAuthAlert
-          currentProvider={currentProvider}
-          platformName={platformName}
-        />
-        <AccountActivationMessage
-          messageType={activationMsgType}
-        />
-        {showResetPasswordSuccessBanner && <ResetPasswordSuccess />}
-        <Form id="sign-in-form" name="sign-in-form">
-          <FormGroup
-            name="emailOrUsername"
-            value={formFields.emailOrUsername}
-            autoComplete="on"
-            handleChange={handleOnChange}
-            handleFocus={handleOnFocus}
-            errorMessage={errors.emailOrUsername}
-            floatingLabel={formatMessage(messages['login.user.identity.label'])}
+        <div className="mw-xs mt-3 mb-2">
+          <LoginFailureMessage
+            errorCode={errorCode.type}
+            errorCount={errorCode.count}
+            context={errorCode.context}
           />
-          <PasswordField
-            name="password"
-            value={formFields.password}
-            autoComplete="off"
-            showScreenReaderText={false}
-            showRequirements={false}
-            handleChange={handleOnChange}
-            handleFocus={handleOnFocus}
-            errorMessage={errors.password}
-            floatingLabel={formatMessage(messages['login.password.label'])}
+          <ThirdPartyAuthAlert
+            currentProvider={currentProvider}
+            platformName={platformName}
           />
-          <div className="flex justify-content-start">
-            <Link
-              id="forgot-password"
-              name="forgot-password"
-              className="btn btn-link font-weight-500 tx-primary px-0 mb-4"
-              to={updatePathWithQueryParams(RESET_PAGE)}
-              onClick={trackForgotPasswordLinkClick}
-            >
-              {formatMessage(messages['forgot.password'])}
-            </Link>
+          <AccountActivationMessage
+            messageType={activationMsgType}
+          />
+          {showResetPasswordSuccessBanner && <ResetPasswordSuccess />}
+          <Form id="sign-in-form" name="sign-in-form">
+            <FormGroup
+              name="emailOrUsername"
+              value={formFields.emailOrUsername}
+              autoComplete="on"
+              handleChange={handleOnChange}
+              handleFocus={handleOnFocus}
+              errorMessage={errors.emailOrUsername}
+              floatingLabel={formatMessage(messages['login.user.identity.label'])}
+            />
+            <PasswordField
+              name="password"
+              value={formFields.password}
+              autoComplete="off"
+              showScreenReaderText={false}
+              showRequirements={false}
+              handleChange={handleOnChange}
+              handleFocus={handleOnFocus}
+              errorMessage={errors.password}
+              floatingLabel={formatMessage(messages['login.password.label'])}
+            />
+            <div className="flex justify-content-start">
+              <Link
+                id="forgot-password"
+                name="forgot-password"
+                className="btn btn-link font-weight-500 tx-primary px-0 mb-4"
+                to={updatePathWithQueryParams(RESET_PAGE)}
+                onClick={trackForgotPasswordLinkClick}
+              >
+                {formatMessage(messages['forgot.password'])}
+              </Link>
+            </div>
+            <StatefulButton
+              name="sign-in"
+              id="sign-in"
+              type="submit"
+              variant="brand"
+              className="login-button"
+              state={submitState}
+              labels={{
+                default: formatMessage(messages['sign.in.button']),
+                pending: '',
+              }}
+              onClick={handleSubmit}
+              onMouseDown={(event) => event.preventDefault()}
+            />
+          </Form>
+          <div className="mt-3 d-flex align-items-start align-items-md-center align-items-lg-center flex-column justify-content-center">
+            <span className="tx-secondary">Don’t have an account?&nbsp;
+              <button type="button" className="link-button" onClick={() => handleOnSelect(REGISTER_PAGE, LOGIN_PAGE)}>Create one</button>
+            </span>
           </div>
-          <StatefulButton
-            name="sign-in"
-            id="sign-in"
-            type="submit"
-            variant="brand"
-            className="login-button"
-            state={submitState}
-            labels={{
-              default: formatMessage(messages['sign.in.button']),
-              pending: '',
-            }}
-            onClick={handleSubmit}
-            onMouseDown={(event) => event.preventDefault()}
-          />
-        </Form>
-        <div className="mt-3 d-flex align-items-center flex-column justify-content-center">
-          <span className="tx-secondary">Don’t have an account? <button type="button" className="link-button" onClick={() => handleOnSelect(REGISTER_PAGE, LOGIN_PAGE)}>Create one</button></span>
-        </div>
-        <div className="mt-5 d-flex align-items-center flex-column justify-content-center">
-          <span className="tx-secondary">By continuing you agree to Medcenter’s</span>
-          <button type="button" className="link-button">Terms and Privacy’s Policy</button>
         </div>
       </div>
-    </>
+      <div className="mt-5 mb-4 mb-md-0 d-flex align-items-center flex-column justify-content-center">
+        <span className="tx-secondary">By continuing you agree to Medcenter’s</span>
+        <button type="button" className="link-button">Terms and Privacy’s Policy</button>
+      </div>
+    </div>
   );
 };
 

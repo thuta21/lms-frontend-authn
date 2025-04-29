@@ -1,10 +1,30 @@
 @import "_variables.scss";
 
+@media (min-width: 576px) {
+    #root .layout {
+        padding: 0;
+    }
+}
+
+[dir=ltr] #root .layout:before, [dir=ltr] #root .layout:after, [dir=ltr] #root .layout:before {
+    box-shadow: none !important;
+}
+
+[dir="ltr"] .company-logo {
+    margin: 0 !important;
+}
+
+#root .layout {
+    background-color: white;
+    padding: 0;
+}
+
 .login-button {
     min-width: 100%;
     background-color: $app-primary-500;
     border-color: $app-primary-500;
 }
+
 .login-button:hover {
     color: #FFFFFF;
     background-color: #228B22EE;
@@ -12,9 +32,10 @@
 }
 
 .link-button {
-    background-color: #FFFFFF;
+    background-color: transparent;
     color: $app-primary-500;
     border: none;
+    padding: 0;
 }
 
 .btn-brand:not(:disabled, .disabled):active, .btn-brand:not(:disabled, .disabled).active, .show > .btn-brand.dropdown-toggle {

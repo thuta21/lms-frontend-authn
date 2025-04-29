@@ -98,46 +98,44 @@ const Logistration = (props) => {
 
   return (
     <BaseContainer>
-      <div>
-        {disablePublicAccountCreation
-          ? (
-            <>
-              {institutionLogin && (
-                <Tabs defaultActiveKey="" id="controlled-tab" onSelect={handleInstitutionLogin}>
-                  <Tab title={tabTitle} eventKey={LOGIN_PAGE} />
-                </Tabs>
+      {disablePublicAccountCreation
+        ? (
+          <>
+            {institutionLogin && (
+              <Tabs defaultActiveKey="" id="controlled-tab" onSelect={handleInstitutionLogin}>
+                <Tab title={tabTitle} eventKey={LOGIN_PAGE} />
+              </Tabs>
+            )}
+            <div id="main-content" className="main-content">
+              {!institutionLogin && (
+                <h3 className="mb-4.5">{formatMessage(messages['logistration.sign.in'])}</h3>
               )}
-              <div id="main-content" className="main-content">
-                {!institutionLogin && (
-                  <h3 className="mb-4.5">{formatMessage(messages['logistration.sign.in'])}</h3>
-                )}
-                <LoginPage institutionLogin={institutionLogin} handleInstitutionLogin={handleInstitutionLogin} />
-              </div>
-            </>
-          )
-          : (
-            <div>
-              { key && (
-                <Navigate to={updatePathWithQueryParams(key)} replace />
-              )}
-              <div id="main-content" className="main-content">
-                {!institutionLogin && !isValidTpaHint() && hideRegistrationLink && (
-                  <h3 className="mb-4.5">
-                    {formatMessage(messages[selectedPage === LOGIN_PAGE ? 'logistration.sign.in' : 'logistration.register'])}
-                  </h3>
-                )}
-                {selectedPage === LOGIN_PAGE
-                  ? <LoginPage institutionLogin={institutionLogin} handleOnSelect={handleOnSelect} />
-                  : (
-                    <RegistrationPage
-                      institutionLogin={institutionLogin}
-                      handleOnSelect={handleOnSelect}
-                    />
-                  )}
-              </div>
+              <LoginPage institutionLogin={institutionLogin} handleInstitutionLogin={handleInstitutionLogin} />
             </div>
-          )}
-      </div>
+          </>
+        )
+        : (
+          <>
+            { key && (
+              <Navigate to={updatePathWithQueryParams(key)} replace />
+            )}
+            <div id="main-content" className="main-content">
+              {!institutionLogin && !isValidTpaHint() && hideRegistrationLink && (
+                <h3 className="mb-4.5">
+                  {formatMessage(messages[selectedPage === LOGIN_PAGE ? 'logistration.sign.in' : 'logistration.register'])}
+                </h3>
+              )}
+              {selectedPage === LOGIN_PAGE
+                ? <LoginPage institutionLogin={institutionLogin} handleOnSelect={handleOnSelect} />
+                : (
+                  <RegistrationPage
+                    institutionLogin={institutionLogin}
+                    handleOnSelect={handleOnSelect}
+                  />
+                )}
+            </div>
+          </>
+        )}
     </BaseContainer>
   );
 };
