@@ -3,7 +3,7 @@ import { defineMessages } from '@edx/frontend-platform/i18n';
 const messages = defineMessages({
   'forgot.password.page.title': {
     id: 'forgot.password.page.title',
-    defaultMessage: 'Forgot Password | {siteName}',
+    defaultMessage: 'Forgot Password',
     description: 'forgot password page title',
   },
   'forgot.password.page.heading': {
@@ -53,7 +53,7 @@ const messages = defineMessages({
   },
   'forgot.password.email.help.text': {
     id: 'forgot.password.email.help.text',
-    defaultMessage: 'The email address you used to register with {platformName}',
+    defaultMessage: 'The email address you used to register',
     description: 'text help for the email',
   },
   // Confirmation Alert Message
@@ -74,7 +74,7 @@ const messages = defineMessages({
   },
   'additional.help.text': {
     id: 'additional.help.text',
-    defaultMessage: 'For additional help, contact {platformName} support at ',
+    defaultMessage: 'For additional help, contact admin mail support at ',
     description: 'additional help text on forgot password page',
   },
   'sign.in.text': {

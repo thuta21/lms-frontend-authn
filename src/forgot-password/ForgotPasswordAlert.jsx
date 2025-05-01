@@ -36,9 +36,12 @@ const ForgotPasswordAlert = (props) => {
           values={{
             email: <span className="data-hj-suppress">{email}</span>,
             supportLink: (
-              <Alert.Link href={getConfig().PASSWORD_RESET_SUPPORT_LINK} target="_blank">
+              <a href={getConfig().PASSWORD_RESET_SUPPORT_LINK} target="_blank" rel="noreferrer">
                 {formatMessage(messages['confirmation.support.link'])}
-              </Alert.Link>
+              </a>
+              // <Alert.Link href={getConfig().PASSWORD_RESET_SUPPORT_LINK} target="_blank">
+              //   {formatMessage(messages['confirmation.support.link'])}
+              // </Alert.Link>
             ),
           }}
         />

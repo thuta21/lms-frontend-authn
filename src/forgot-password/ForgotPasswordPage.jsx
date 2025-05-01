@@ -97,8 +97,8 @@ const ForgotPasswordPage = (props) => {
   return (
     <BaseContainer>
       <Helmet>
-        <title>{formatMessage(messages['forgot.password.page.title'],
-          { siteName: getConfig().SITE_NAME })}
+        {/* { siteName: getConfig().SITE_NAME } */}
+        <title>{formatMessage(messages['forgot.password.page.title'])}
         </title>
       </Helmet>
       <div>
@@ -123,7 +123,7 @@ const ForgotPasswordPage = (props) => {
               handleChange={(e) => setEmail(e.target.value)}
               handleBlur={handleBlur}
               handleFocus={handleFocus}
-              helpText={[formatMessage(messages['forgot.password.email.help.text'], { platformName })]}
+              helpText={[formatMessage(messages['forgot.password.email.help.text'])]}
             />
             <StatefulButton
               id="submit-forget-password"
@@ -143,7 +143,7 @@ const ForgotPasswordPage = (props) => {
               <Hyperlink
                 id="forgot-password"
                 name="forgot-password"
-                className="ml-4 font-weight-500 text-body"
+                className="mt-4 font-weight-500 text-body"
                 destination={getConfig().LOGIN_ISSUE_SUPPORT_LINK}
                 target="_blank"
                 showLaunchIcon={false}
